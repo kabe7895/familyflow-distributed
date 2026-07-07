@@ -91,3 +91,60 @@ Planned development steps:
 - Introduce authentication and authorization
 - Connect the Android client with the backend API
 - Extend the application towards a distributed system architecture
+
+## Database Persistence
+
+The first JPA entity has been implemented.
+
+Current database model:
+
+- Entity: Member
+- Table: members
+
+Hibernate automatically creates the database schema during application startup.
+
+Verified:
+- PostgreSQL connection successful
+- JPA repository initialized
+- Table creation completed
+
+## Backend Status
+
+The Spring Boot backend is connected to PostgreSQL and provides a first REST API.
+
+Implemented:
+
+- Spring Boot application setup
+- PostgreSQL database connection
+- JPA/Hibernate configuration
+- Member entity
+- Member repository
+- Member service layer
+- Member REST controller
+
+First REST endpoints:
+
+GET /members
+
+Returns all stored members.
+
+POST /members
+
+Creates a new member and stores it in PostgreSQL.
+
+Example:
+
+{
+  "name": "Max Mustermann",
+  "email": "max@example.com"
+}
+
+Test result:
+
+[
+  {
+    "id": 1,
+    "name": "Max Mustermann",
+    "email": "max@example.com"
+  }
+]
