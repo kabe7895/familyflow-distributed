@@ -1,6 +1,7 @@
 package de.familyflow.backend.member;
 
 import org.springframework.stereotype.Service;
+import de.familyflow.backend.exception.MemberNotFoundException;
 
 import java.util.List;
 
@@ -17,10 +18,10 @@ public class MemberService {
         return repository.findAll();
     }
 
-    public Member getMemberById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Member not found"));
-    }
+   public Member getMemberById(Long id) {
+    return repository.findById(id)
+            .orElseThrow(() -> new MemberNotFoundException(id));
+}
 
     public Member createMember(Member member) {
         return repository.save(member);
