@@ -148,3 +148,14 @@ Test result:
     "email": "max@example.com"
   }
 ]
+
+## Current Status
+
+Backend foundation completed:
+
+- Spring Boot backend setup
+- PostgreSQL integration
+- First JPA entity (Member)
+- Repository-Service-Controller architecture
+- REST API for members
+- Verified database persistence
