@@ -1,7 +1,8 @@
 package de.familyflow.backend.member;
 
+import de.familyflow.backend.member.dto.MemberRequestDTO;
+import de.familyflow.backend.member.dto.MemberResponseDTO;
 import org.springframework.stereotype.Service;
-import de.familyflow.backend.exception.MemberNotFoundException;
 
 import java.util.List;
 
@@ -14,30 +15,82 @@ public class MemberService {
         this.repository = repository;
     }
 
-    public List<Member> getAllMembers() {
-        return repository.findAll();
+
+    public List<MemberResponseDTO> getAllMembers() {
+
+        return repository.findAll()
+                .stream()
+                .map(member -> new MemberResponseDTO(
+                        member.getId(),
+                        member.getName(),
+                        member.getEmail()
+                ))
+                .toList();
     }
 
-   public Member getMemberById(Long id) {
-    return repository.findById(id)
-            .orElseThrow(() -> new MemberNotFoundException(id));
-}
 
-    public Member createMember(Member member) {
-        return repository.save(member);
+    public MemberResponseDTO getMemberById(Long id) {
+
+        Member member = repository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Member not found"));
+
+        return new MemberResponseDTO(
+                member.getId(),
+                member.getName(),
+                member.getEmail()
+        );
     }
 
-    public Member updateMember(Long id, Member updatedMember) {
-        Member existingMember = getMemberById(id);
 
-        existingMember.setName(updatedMember.getName());
-        existingMember.setEmail(updatedMember.getEmail());
+    public MemberResponseDTO createMember(MemberRequestDTO request) {
 
-        return repository.save(existingMember);
+        Member member = new Member();
+
+        member.setName(request.getName());
+        member.setEmail(request.getEmail());
+
+        Member saved = repository.save(member);
+
+        return new MemberResponseDTO(
+                saved.getId(),
+                saved.getName(),
+                saved.getEmail()
+        );
     }
+
+
+    public MemberResponseDTO updateMember(
+            Long id,
+            MemberRequestDTO request) {
+
+
+        Member existingMember = repository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Member not found"));
+
+
+        existingMember.setName(request.getName());
+        existingMember.setEmail(request.getEmail());
+
+
+        Member saved = repository.save(existingMember);
+
+
+        return new MemberResponseDTO(
+                saved.getId(),
+                saved.getName(),
+                saved.getEmail()
+        );
+    }
+
 
     public void deleteMember(Long id) {
-        Member member = getMemberById(id);
+
+        Member member = repository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Member not found"));
+
         repository.delete(member);
     }
 }
