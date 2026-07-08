@@ -23,4 +23,22 @@ public class MemberController {
     public Member createMember(@RequestBody Member member) {
         return service.createMember(member);
     }
+
+    @GetMapping("/{id}")
+    public Member getMemberById(@PathVariable Long id) {
+        return service.getMemberById(id);
+    }
+
+    @PutMapping("/{id}")
+    public Member updateMember(
+            @PathVariable Long id,
+            @RequestBody Member member) {
+
+        return service.updateMember(id, member);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteMember(@PathVariable Long id) {
+        service.deleteMember(id);
+    }
 }
