@@ -1,7 +1,7 @@
 package de.familyflow.backend.member;
 
 import org.springframework.web.bind.annotation.*;
-
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,10 +19,10 @@ public class MemberController {
         return service.getAllMembers();
     }
 
-    @PostMapping
-    public Member createMember(@RequestBody Member member) {
-        return service.createMember(member);
-    }
+@PostMapping
+public Member createMember(@Valid @RequestBody Member member) {
+    return service.createMember(member);
+}
 
     @GetMapping("/{id}")
     public Member getMemberById(@PathVariable Long id) {
@@ -30,12 +30,12 @@ public class MemberController {
     }
 
     @PutMapping("/{id}")
-    public Member updateMember(
-            @PathVariable Long id,
-            @RequestBody Member member) {
+public Member updateMember(
+        @PathVariable Long id,
+        @Valid @RequestBody Member member) {
 
-        return service.updateMember(id, member);
-    }
+    return service.updateMember(id, member);
+}
 
     @DeleteMapping("/{id}")
     public void deleteMember(@PathVariable Long id) {
