@@ -1,5 +1,6 @@
 package de.familyflow.backend.member;
 
+import de.familyflow.backend.exception.MemberNotFoundException;
 import de.familyflow.backend.member.dto.MemberRequestDTO;
 import de.familyflow.backend.member.dto.MemberResponseDTO;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class MemberService {
 
         Member member = repository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Member not found"));
+                        new MemberNotFoundException("Member not found"));
 
         return new MemberResponseDTO(
                 member.getId(),
@@ -64,18 +65,14 @@ public class MemberService {
             Long id,
             MemberRequestDTO request) {
 
-
         Member existingMember = repository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Member not found"));
-
+                        new MemberNotFoundException("Member not found"));
 
         existingMember.setName(request.getName());
         existingMember.setEmail(request.getEmail());
 
-
         Member saved = repository.save(existingMember);
-
 
         return new MemberResponseDTO(
                 saved.getId(),
@@ -89,7 +86,7 @@ public class MemberService {
 
         Member member = repository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Member not found"));
+                        new MemberNotFoundException("Member not found"));
 
         repository.delete(member);
     }
