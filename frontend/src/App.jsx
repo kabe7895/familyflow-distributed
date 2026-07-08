@@ -1,101 +1,47 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { useState } from "react";
 
+import Sidebar from "./components/Sidebar";
+import Header from "./components/Header";
 
-function Dashboard() {
-  return (
-    <div>
-      <h1>FamilyFlow Dashboard</h1>
-      <h2>Welcome back!</h2>
-
-      <div>
-        <h3>Family</h3>
-        <p>Miller Family</p>
-      </div>
-
-      <div>
-        <h3>Tasks</h3>
-        <p>3 open tasks</p>
-      </div>
-    </div>
-  );
-}
-
-
-function Tasks() {
-  return (
-    <div>
-      <h1>Tasks</h1>
-
-      <ul>
-        <li>☐ Buy groceries</li>
-        <li>☑ Clean kitchen</li>
-        <li>☐ Prepare dinner</li>
-      </ul>
-
-      <button>
-        Add Task
-      </button>
-
-    </div>
-  );
-}
-
-
-function Families() {
-  return (
-    <div>
-      <h1>Family Members</h1>
-
-      <ul>
-        <li>Anna</li>
-        <li>Tom</li>
-        <li>Lisa</li>
-      </ul>
-
-      <button>
-        Invite Member
-      </button>
-
-    </div>
-  );
-}
-
+import Dashboard from "./pages/Dashboard";
+import Tasks from "./pages/Tasks";
+import FamilyManagement from "./pages/FamilyManagement";
 
 
 function App() {
 
-  return (
-    <BrowserRouter>
-
-      <nav>
-        <Link to="/">Dashboard</Link> |
-        <Link to="/tasks"> Tasks</Link> |
-        <Link to="/families"> Families</Link>
-      </nav>
+    const [page, setPage] = useState("dashboard");
 
 
-      <Routes>
+    function renderPage() {
 
-        <Route 
-          path="/" 
-          element={<Dashboard />} 
-        />
+        if (page === "tasks") {
+            return <Tasks />;
+        }
 
-        <Route 
-          path="/tasks" 
-          element={<Tasks />} 
-        />
+        if (page === "family") {
+            return <FamilyManagement />;
+        }
 
-        <Route 
-          path="/families" 
-          element={<Families />} 
-        />
-
-      </Routes>
+        return <Dashboard />;
+    }
 
 
-    </BrowserRouter>
-  );
+    return (
+        <div className="app">
+
+            <Sidebar setPage={setPage} />
+
+            <main className="content">
+
+                <Header />
+
+                {renderPage()}
+
+            </main>
+
+        </div>
+    );
 }
 
 
