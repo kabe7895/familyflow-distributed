@@ -2,6 +2,7 @@ package de.familyflow.backend.family;
 
 import de.familyflow.backend.family.dto.FamilyRequestDTO;
 import de.familyflow.backend.family.dto.FamilyResponseDTO;
+import de.familyflow.backend.notification.NotificationClient;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,10 +11,15 @@ import java.util.List;
 public class FamilyService {
 
     private final FamilyRepository repository;
+    private final NotificationClient notificationClient;
 
 
-    public FamilyService(FamilyRepository repository) {
+    public FamilyService(
+            FamilyRepository repository,
+            NotificationClient notificationClient
+    ) {
         this.repository = repository;
+        this.notificationClient = notificationClient;
     }
 
 
@@ -56,6 +62,13 @@ public class FamilyService {
 
 
         Family saved = repository.save(family);
+
+
+        // Kommunikation mit eigenständigem Notification-Service
+        notificationClient.sendNotification(
+                "FAMILY_CREATED",
+                "Family created: " + saved.getFamilyName()
+        );
 
 
         return new FamilyResponseDTO(

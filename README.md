@@ -1,161 +1,88 @@
-# familyflow-distributed
+# Family Flow Distributed
 
-Distributed FamilyFlow application using Spring Boot, Android and PostgreSQL.
+A distributed family management platform enabling families to organize members, tasks, and data efficiently.
 
-## Current Status
+## Project Overview
 
-The backend foundation has been created successfully.
+Family Flow provides a central, distributed platform designed to help families manage their daily organization. The application is built with a modular approach, separating concerns between a robust Java backend, a modern React frontend, and a relational PostgreSQL database.
 
-Implemented:
+## Architecture
 
-- Spring Boot backend project setup
-- Maven project configuration
-- PostgreSQL database connection
-- Spring Data JPA integration
-- First REST endpoint for backend health checks
+The project follows a classic client-server architecture:
 
-## Backend Technology Stack
+- **Frontend**: A Single Page Application (SPA) built with React 19 and Vite. It utilizes manual state-based routing to provide a fast and responsive user experience.
+- **Backend**: A modular Spring Boot 3.5 application running on Java 17. It exposes RESTful APIs for frontend consumption, handles business logic, and manages database persistence via Spring Data JPA.
+- **Database**: PostgreSQL handles persistent storage, with Hibernate managing schema synchronization dynamically.
 
-- Java 21
-- Spring Boot 3.5.16
-- Maven
-- Spring Web
-- Spring Data JPA
-- PostgreSQL 18
-- Hibernate ORM
+## Technology Stack
+
+### Backend
+- **Framework**: Spring Boot 3.5.16
+- **Language**: Java 17
+- **Database Access**: Spring Data JPA / Hibernate
+- **Validation**: Spring Boot Starter Validation
+- **Documentation**: Springdoc OpenAPI (Swagger)
+
+### Frontend
+- **Framework**: React 19
+- **Build Tool**: Vite 8
+- **Language**: JavaScript/JSX
+
+### Infrastructure
+- **Database**: PostgreSQL
+
+## Getting Started
+
+### Prerequisites
+
+- **Java Development Kit (JDK)**: Version 17 or higher.
+- **Node.js**: Version 20 or higher.
+- **PostgreSQL**: A running instance.
+- **Environment Variables**:
+  - `DB_PASSWORD`: Set this environment variable to your PostgreSQL password.
+
+### Running the Backend
+
+1. Navigate to the `backend` directory:
+   ```bash
+   cd backend
+   ```
+2. Build and run the application:
+   ```bash
+   ./mvnw spring-boot:run
+   ```
+3. The API will be available at `http://localhost:8080`.
+4. API documentation can be accessed at `http://localhost:8080/swagger-ui/index.html`.
+
+### Running the Frontend
+
+1. Navigate to the `frontend` directory:
+   ```bash
+   cd frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+4. Access the application at the URL provided by Vite (usually `http://localhost:5173`).
 
 ## Project Structure
-familyflow-distributed
-│
-├── backend
-│ ├── src/main/java
-│ │ └── de.familyflow.backend
-│ │ ├── BackendApplication.java
-│ │ └── controller
-│ │ └── HealthController.java
-│ │
-│ └── src/main/resources
-│ └── application.properties
-│
-└── README.md
 
-## Database
+```text
+├── backend/          # Spring Boot application
+├── frontend/         # React SPA
+├── docs/             # Comprehensive technical documentation
+└── database/         # SQL/migration scripts (placeholders)
+```
 
-The backend is connected to a PostgreSQL database.
+## Development Guidelines
 
-Database:
-- PostgreSQL 18
-- Database name: `familyflow`
+For detailed information on project setup, API definitions, and development workflows, refer to the documentation in the `docs/` directory:
 
-The database connection is configured using environment variables:
-DB_PASSWORD
-
-The password is not stored directly in the project configuration.
-
-## Running the Backend
-
-Navigate to the backend folder:
-
-```bash
-cd backend
-Start the Spring Boot application:
-
-mvn spring-boot:run
-
-The backend starts on:
-
-http://localhost:8080
-Health Check
-
-A first test endpoint is available:
-
-GET /health
-## Development Notes
-
-The initial backend setup included the following steps:
-
-- Configured the Spring Boot backend project structure
-- Renamed the project package and application classes from `beckend` to `backend`
-- Connected the backend application to PostgreSQL
-- Configured database access using environment variables
-- Verified successful Spring Boot startup
-- Implemented the first REST endpoint for backend health monitoring
-
-## Next Steps
-
-Planned development steps:
-
-- Create the first database entities and JPA models
-- Implement REST APIs for user management
-- Add validation and business logic
-- Introduce authentication and authorization
-- Connect the Android client with the backend API
-- Extend the application towards a distributed system architecture
-
-## Database Persistence
-
-The first JPA entity has been implemented.
-
-Current database model:
-
-- Entity: Member
-- Table: members
-
-Hibernate automatically creates the database schema during application startup.
-
-Verified:
-- PostgreSQL connection successful
-- JPA repository initialized
-- Table creation completed
-
-## Backend Status
-
-The Spring Boot backend is connected to PostgreSQL and provides a first REST API.
-
-Implemented:
-
-- Spring Boot application setup
-- PostgreSQL database connection
-- JPA/Hibernate configuration
-- Member entity
-- Member repository
-- Member service layer
-- Member REST controller
-
-First REST endpoints:
-
-GET /members
-
-Returns all stored members.
-
-POST /members
-
-Creates a new member and stores it in PostgreSQL.
-
-Example:
-
-{
-  "name": "Max Mustermann",
-  "email": "max@example.com"
-}
-
-Test result:
-
-[
-  {
-    "id": 1,
-    "name": "Max Mustermann",
-    "email": "max@example.com"
-  }
-]
-
-## Current Status
-
-Backend foundation completed:
-
-- Spring Boot backend setup
-- PostgreSQL integration
-- First JPA entity (Member)
-- Repository-Service-Controller architecture
-- REST API for members
-- Verified database persistence
+- [Project Setup](docs/01_Project_Setup.md)
+- [API Documentation](docs/07_Swagger_API_Documentation.md)
+- [Member Module](docs/03_First_Member_API.md)
