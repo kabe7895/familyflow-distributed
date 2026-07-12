@@ -1,4 +1,4 @@
-\# Step: Frontend Family Management
+# Step: Frontend Family Management
 
 
 
@@ -6,7 +6,7 @@ Date: 08.07.2026
 
 
 
-\## Goal
+## Goal
 
 
 
@@ -14,25 +14,25 @@ Connect the React frontend with the Spring Boot backend.
 
 
 
-\## Implemented
+## Implemented
 
 
 
-\- Created React frontend with Vite
+- Created React frontend with Vite
 
-\- Added component structure:
+- Added component structure:
 
 &#x20; - components
 
 &#x20; - pages
 
-\- Added FamilyManagement page
+- Added FamilyManagement page
 
-\- Added REST communication using fetch API
+- Added REST communication using fetch API
 
 
 
-\## API Connection
+## API Connection
 
 
 
@@ -70,7 +70,7 @@ POST /families
 
 
 
-\## Result
+## Result
 
 
 
@@ -92,7 +92,7 @@ The created family is stored in PostgreSQL and displayed again after loading.
 
 
 
-\## Architecture
+## Architecture
 
 
 
